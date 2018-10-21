@@ -1,0 +1,25 @@
+version: '2'
+ services:
+  db:
+    image: mysql:5.7.22
+    ports:
+       - "3306:3306"
+    environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: test
+        MYSQL_PASSWORD: test
+        MYSQL_DATABASE: kosa3
+    command: mysqld --sql_mode=""
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=root
+    links:
+      - db
+    ports:
+       - 8080:80
+    volumes:
+       - /sessions
